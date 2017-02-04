@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  
+    
+    <entry>
+      <title><![CDATA[如何手动下载SPRING-FRAMEWORK的jars]]></title>
+      <url>%2F2016%2F06%2F05%2Fhow-download-SPRING-FRAMEWORK-jars-manually%2F</url>
+      <content type="text"><![CDATA[在Maven和Gradle等构建方式盛行的今天，有些童鞋（比如我，害羞脸）还是很钟情于手动下载项目中所需要和依赖的jars，今天就和有这方面需求的童鞋分享下如何手动下载Spring-Framework中的jars，当然仅仅是Spring的核心jars，不含第三方的依赖。 打开Spring的官网你可以直接输入网址，也可以使用搜索引擎，whatever，进入Spring的官网，会打开如下的页面： 选择SPRING-FRAMEWORK点击官网首页的PROJECTS后，进入如下的项目选择页面，我们选择SPRING-FRAMEWORK项目，如下图操作： 点击图中红色方框即可进入SPRING-FRAMEWORK项目主页。 进入SPRING-FRAMEWORK的GitHub主页我们在Spring官网中SPRING-FRAMEWORK的主页，点击GitHub的图标以进入该项目的GitHub主页： 打开SPRING-FRAMEWORK的的Wiki 在该页面点击上方的Wiki栏目，以进入下一步骤。 找到下载Spring包 点击上图红框中的链接，就可以进入到下载Spring包的介绍页面，该页面介绍了多种获取Spring jars的多种方式，当然包括手动下载方式。 寻找Spring jars分发仓库入口上一步操作后我们就到了载Spring包的介绍页面，将页面滚动到尾部，在以Manually downloading Spring distributions为标题的这段文字中点击下图中的网址链接： Spring jars分发仓库上一步后我们便到了Spring jars分发仓库，这里是各种开源项目的一个jars的分发仓库，如下图，点击侧边栏的Artifacts： 包浏览树上一步的操作是为了打开如下页面： 选择springframework节点这一步无需多言，直接看图： 下载springframework的jars点击springframework的子节点spring，这个节点下有SPRINGFRAMEWORK的各个发行版本，点击选择你想要下载的版本，然后点击右边的Download按钮即可下载： 以上。]]></content>
+    </entry>
+
+    
+    <entry>
+      <title><![CDATA[macOS下通过Homebrew安装MySQL]]></title>
+      <url>%2F2016%2F05%2F17%2FmacOS-homebrew-install-MySQL%2F</url>
+      <content type="text"><![CDATA[macOS有了Homebrew这样的软件包管理工具后，管理软件就变得十分的方便。今天和大家分享一下如何在Mac上安装MySQL数据库，以及碰到一些坑后要怎么解决，我安装的MySQL版本是5.7.12。 使用Homebrew安装执行如下命令查找MySQL，会列出很多项: 1brew search mysql 安装的时候选择mysql这一项，执行命令： 1brew install mysql 耐心等待片刻等待安装成功，然后开启MySQL服务： 1brew services start mysql 如果安装完MySQL后出现问题，想要卸载可以依次执行以下的命令： 1234567&gt; brew remove mysql&gt; brew cleanup&gt; launchctl unload -w ~/Library/LaunchAgents/com.mysql.mysqld.plist&gt; rm ~/Library/LaunchAgents/com.mysql.mysqld.plist&gt; sudo rm -rf /usr/local/var/mysql&gt;&gt; &gt;&gt; 配置数据库Mac OSX下默认是不用通过my.cnf来配置的，默认配置已经完全可以使你方便的使用MySQL了。但是，如果你觉得不折腾心痒难耐，可以使用如下命令： 1mysqld --help --verbose | more 你会看到如下一段描述，表示配置文件默认读取顺序： Default options are read from the following files in the given order:/etc/my.cnf /etc/mysql/my.cnf /usr/local/etc/my.cnf ~/.my.cnf 但是通常这些位置是没有配置文件的, 所以要自己建一个，通过下面这条命令可以找到my.cnf样例： 1ls $(brew --prefix mysql)/support-files/my-* 把找到的样例拷贝到第一个默认目录： 1cp /usr/local/opt/mysql/support-files/my-default.cnf /etc/my.cnf 这样，以后按需修改即可。 修改密码校验的等级MySQL从5.6.6开始，开始可以使用validate_password插件来校验密码，当你安装这个插件后（对，我就手贱的安装了），试图要降低安全等级时会报错： 1ERROR 1819 (HY000): Your password does not satisfy the current policy requirements 这时我们执行命令： 1mysql&gt; SHOW VARIABLES LIKE &apos;validate_password%&apos;; 可以看到 +————————————–+——–+| Variable_name | Value |+————————————–+——–+| validate_password_dictionary_file | || validate_password_length | 8 || validate_password_mixed_case_count | 1 || validate_password_number_count | 1 || validate_password_policy | MEDIUM || validate_password_special_char_count | 1 |+————————————–+——–+ 其默认的安全等级是MEDIUM，我们可以把它改变为LOW: 1mysql&gt; SET GLOBAL validate_password_policy=LOW; 这个更为详细的可以参看 Change MySQL password policy level以上。]]></content>
+    </entry>
+
+    
+    <entry>
+      <title><![CDATA[推送Git项目到多个远程仓库]]></title>
+      <url>%2F2016%2F05%2F14%2Fgit-push-to-multiple-repositories%2F</url>
+      <content type="text"><![CDATA[最近一直在学习和使用Git作为版本控制系统，并同时使用GitHub和Coding作为自用项目的远程仓库来托管代码。自从Google被墙后，心里就对使用域外的互联网服务产生了阴影，总担心有一天GitHub也会被墙，所有就萌生了是不是可以把自己本地代码同时推送到两个远程仓库的想法，这样可以在一次commit and push把自己的代码同时推送到GitHub和Coding。于是经过一翻Google（没错，就是Google你没有看错）和摸索，终于得偿所愿，现在把自己的做法分享一下。 选择SSH克隆远程仓库虽然GitHub官方推荐使用HTTPS URLs: The https:// clone URLs are available on all repositories, public and private. These URLs work everywhere–even if you are behind a firewall or proxy. 但还是强烈推荐实用SSH的方式来完成和远程仓库连接过程中的认证，这样不用每次都输入用户名和密码（如果你有更好办法，欢迎留言），变的十分方便。具体的可以在你远程仓库选择SSH URL的方式，举个GitHub的栗子： 克隆远程仓库到工作目录作为一个Java developer，平时经常使用的IDE是Eclipse（用过一段时间的IntelliJ IDEA，感觉很别扭，可能是还没习惯，反正没再继续使用，也许将来会使用，谁知道呢），所以我这里将通过Eclipse来把远程仓库克隆到我本地工作目录。拷贝SSH URL（我这里使用Coding来克隆，主要是因为其在国内速度快，后面将添加GitHub作为另一个远程仓库。成功添加GitHub后便可以只从Coding拉取代码，而同时向Coding和GitHub推送代码了，这样既保证拉取时有足够快的速度又可以备份一份代码到GitHib，简直简直爽到没朋友啊。）后，粘贴到Eclipse中，使用Import Projects form Git导入项目： 粘贴后不需要进行任何设置，直接Next&gt;进行后面的项目导入操作，这里不再赘述。 添加另一个远程仓库由于上面我是从Coding上克隆仓库到工作目录的，所以这里我将演示如何再添加GitHub作为另一个远程仓库。如果已经配置好了SSH验证方式，并在GitHub添加了你SSH Key，在终端（Windows下你可能使用的是GitBash）进入你当前项目工作目录下的.git目录并查看： 1234567891011~/your_working_dir/.git on git:master o$ ll-rw-r--r-- 1 asan staff 119 5 14 15:22 FETCH_HEAD-rw-r--r-- 1 asan staff 23 5 14 15:22 HEADdrwxr-xr-x 2 asan staff 68 5 14 15:22 branches-rw-r--r-- 1 asan staff 281 5 14 15:22 configdrwxr-xr-x 2 asan staff 68 5 14 15:22 hooks-rw-r--r-- 1 asan staff 4064 5 14 15:23 indexdrwxr-xr-x 4 asan staff 136 5 14 15:22 logsdrwxr-xr-x 4 asan staff 136 5 14 15:22 objectsdrwxr-xr-x 5 asan staff 170 5 14 15:22 refs 用vim打开文件config，可以看到 1234567891011121314151617$ vi config[core] repositoryformatversion = 0 filemode = true logallrefupdates = true precomposeunicode = true[remote "origin"] url = git@git.coding.net:username/your_project.git fetch = +refs/heads/*:refs/remotes/origin/*[branch "master"] remote = origin merge = refs/heads/master~~~"config" 11L, 281C 这时我们在[remote &quot;origin&quot;]节点下添加GitHub的克隆SSH URL，如下： 123456789101112131415161718$ vi config[core] repositoryformatversion = 0 filemode = true logallrefupdates = true precomposeunicode = true[remote "origin"] url = git@git.coding.net:username/your_project.git url = git@github.com:username/your_project.git fetch = +refs/heads/*:refs/remotes/origin/*[branch "master"] remote = origin merge = refs/heads/master~~~"config" 11L, 281C 保存并退出vim，当然，使用命令行也可以直接添加，命令格式如下： 1git remote set-url --add origin git@github.com:username/your_project.git 此时我们执行命令git remote show origin会发现，后来添加的远程仓库已经是另外一个Push URL了： 123456789101112$ git remote show origin* remote origin Fetch URL: git@git.coding.net:username/your_project.git Push URL: git@git.coding.net:username/your_project.git Push URL: git@github.com:username/your_project.git HEAD branch: master Remote branch: master tracked Local branch configured for 'git pull': master merges with remote master Local ref configured for 'git push': master pushes to master (up to date) 至此，我们就实现了推送Git项目到多个远程仓库，只从Coding拉取代码，而同时向Coding和GitHub推送代码。 附赠在Eclipse中commit代码时，如果打开的是一个Staging View而不是一个对话框，则可以按附图中的方法进行设置：把设置项Useing Staging View to commit instead of Commit Dialog前的对勾去掉。但这个设置可能仅对Mac OSX下的Eclipse有用，因为我在Windows版本的Eclipse中并没有找到对应的设置，当然两个平台都是最新版本的Eclipse Mars，希望对碰到类似问题的童鞋有所帮助。]]></content>
+    </entry>
+
+    
+    <entry>
+      <title><![CDATA[Git拉取命令报错]]></title>
+      <url>%2F2016%2F05%2F09%2Fgit-pull-error%2F</url>
+      <content type="text"><![CDATA[Git拉取命令报错在使用git过程中，更新操作是很常见的一种操作。如果当本地的文件修改过后，和远程仓库的文件不一致了，此时再进行更新操作就可能会产生错误Your local changes to the following files would be overwritten by merge。下面是我在更新Hexo主题时出现的： 那么当出现了上述的问题时，我们应该怎么办呢？一般根据你的实际情况作如下操作： 保留本地版本同时更新这种情形适合希望保留生产服务器上所做的改动，仅仅并入新配置项，则可以依次如下操作： 123git stashgit pullgit stash pop 然后可以使用git diff -w file来确认代码自动合并的情况。 舍弃本地版本同时更新这种情形适合希望用远程仓库中的文件完全覆盖本地工作版本，并舍弃本地版本，则可以依次如下操作： 12git reset --hard HEAD^git pull 其中git reset --hard HEAD^是针对版本，如果想丢弃一个文件的所有改动，可使用 1git checkout -- file]]></content>
+    </entry>
+
+    
+    <entry>
+      <title><![CDATA[Oracle事务锁导致事务无法提交的问题]]></title>
+      <url>%2F2016%2F04%2F07%2Foracledb-transaction-lock-issue%2F</url>
+      <content type="text"><![CDATA[今天在修改bug的过程中，一条更新数据的sql执行怎么也执行不了，进入貌似“排队”的情况，一直处于等待的状态，第一直觉是事务锁起到坏作用，后在项目组高手的协助下找到了原因，是数据被锁住了。一般查询是否被锁住可以做如下操作： 以系统数据库管理员的身份登录12345--无连接启动sqlplussqlplus /nolog;--以sysdba的身份连接数据库conn /as sysdba; 查看被锁的数据对象12345--查询被锁的数据对象select t2.username, t2.sid, t2.serial#, t2.logon_time from v$locked_object t1, v$session t2where t1.session_id = t2.sidorder by t2.logon_time; 执行上述语句后，得到如下的结果： 表明的确是有用户的数据对象（因为当前数据库实例中只有图中的用户处于活动状态）处于锁定状态，然后需要把该用户的进程kill掉即可。 停止被锁事务数据对象的进程123--同一个sid可能会被不同的session使用，所以通过sid和serial number可以唯一定位；--下面的sid，和serial#替换成上图中对应的值即可alter system kill session 'sid,serial#'; 其实，上面的截图只是一部分，总共有27个被锁的数据对象，如果一行一行进行kill，岂不烦死本宝宝，因此我使用存储过程来实现了： 1234567891011121314151617declare cursor kill_lockedobj_crs is( select t2.sid,t2.serial# serial from v$locked_object t1,v$session t2 where t1.session_id=t2.sid ); v_sql varchar2(500); v_session varchar2(30);begin for cont in kill_lockedobj_crs loop exit when kill_lockedobj_crs%notfound; v_obj := cont.sid ||&apos;,&apos;||cont.serial; v_sql := &apos;alter system kill session&apos; || v_obj; execute immediate v_sql; end loop;end;/commit; 望我的解决方法对大家有所帮助。如有错误，欢迎指正和交流！]]></content>
+    </entry>
+
+    
+    <entry>
+      <title><![CDATA[MySQL数据库备份和恢复]]></title>
+      <url>%2F2016%2F03%2F31%2Fmysqldb-dump-and-import%2F</url>
+      <content type="text"><![CDATA[如果你需要将数据拷贝至其他的 MySQL 服务器上, 你可以在 mysqldump 命令中指定数据库名及数据表。 在源主机上执行以下命令，将数据备份至 dump.txt 文件中: 12$ mysqldump -u root -p database_name table_name &gt; dump.txtpassword ***** 如果完整备份数据库，则无需使用特定的表名称如果你需要将备份的数据库导入到MySQL服务器中，可以使用以下命令，使用以下命令你需要确认数据库已经创建： 12$ mysql -u root -p database_name &lt; dump.txtpassword *****]]></content>
+    </entry>
+
+    
+    <entry>
+      <title><![CDATA[Oracle数据库表的备份及还原]]></title>
+      <url>%2F2016%2F03%2F02%2Foracledb-dump-and-import%2F</url>
+      <content type="text"><![CDATA[这里的Oracle数据库表的备份及还原准确得说，是指某用户下数据库表及其数据的导出和将导出的dmp文件导入新用户的过程。以下操作均在Linux命令行中进行。 以SYSDBA身份连接数据库12345--无连接启动sqlplussqlplus /nolog;--以sysdba的身份连接数据库conn /as sysdba; 创建表空间和用户12345678-- 创建表空间，table_space_datafile建议和表空间的名称保持一致CREATE TABLESPACE your_tablespace_name DATAFILE '/u00/oradata/tablespace_datafile.dbf' SIZE 128M AUTOEXTEND ON NEXT 32M MAXSIZE UNLIMITED;-- 在上述表空间下创建用户CREATE USER your_user IDENTIFIED BY your_password DEFAULT TABLESPACE your_tablespace_name;-- 赋权限给上述创建的用户GRANT CONNECT,RESOURCE,CREATE TABLE,CREATE VIEW,EXECUTE ANY PROCEDURE,CREATE SYNONYM TO your_user; 创建数据库表、索引并初始化这里指的是数据库表中数据的初始化。根据业务的不同，在表创建完成后，表中一般是要有初始数据的。下面我们将该用户下的数据表及其数据导出，以作备份。 执行导出命令12--/home/oracle/dmp/dmp_file_name.dmp为举例路径，根据实际情况指定你自己的路径exp your_user/your_password file=/home/oracle/dmp/dmp_file_name.dmp; 执行导入命令如果希望把上述的备份文件导入到新的用户，则可以创建新的表空间和用户，并执行如下命令： 12--此操作需要知道dmp文件导出用户的用户名和密码imp your_user/your_password file=/home/oracle/dmp/dmp_file_name.dmp fromuser=your_user touser=new_user; 以上即为数据库表备份和还原的一般实现过程。 Tips:用户和表空间的删除由于在开发过程中需要经常创建和删除用户，一段时间后则需要清理掉不再使用的用户和表空间。对于单个user和tablespace 来说， 可以 依次 使用如下命令来完成： 1234--此操作删除了该user下的schema objects，不会删除相应的tablespaceDROP USER your_user CASCADE;--删除表空间DROP TABLESPACE tablespace_name INCLUDING CONTENTS AND DATAFILES; 如果删除用户时出现如下报错： 123456&gt; SQL&gt; DROP USER username CASCADE;&gt; DROP USER username CASCADE&gt; *&gt; ERROR at line 1:&gt; ORA-01940: cannot drop a user that is currently connected&gt; 可以使用如下操作: 12--查看用户进程，用户名需要大写，如下图select sid, serial# from v$session where username='YOUR_USER'; 123--依次将用户占用的会话进程停止alter system kill session '1075,5234';alter system kill session '1076,4388'; 以下是删除表空间的一些其他操作方式： 1234567891011121314--删除空的表空间，但是不包含物理文件DROP TABLESPACE tablespace_name;--删除非空表空间，但是不包含物理文件DROP TABLESPACE tablespace_name INCLUDING CONTENTS;--删除空表空间，包含物理文件DROP TABLESPACE tablespace_name INCLUDING DATAFILES;--删除非空表空间，包含物理文件DROP TABLESPACE tablespace_name INCLUDING CONTENTS AND DATAFILES;--如果其他表空间中的表有外键等约束关联到了本表空间中的表的字段，就要加上CASCADE CONSTRAINTSDROP TABLESPACE tablespace_name INCLUDING CONTENTS AND DATAFILES CASCADE CONSTRAINTS;]]></content>
+    </entry>
+
+    
+    <entry>
+      <title><![CDATA[在PL/SQL中自定义数组类型]]></title>
+      <url>%2F2016%2F02%2F22%2Fuser-defined-array-in-plsql%2F</url>
+      <content type="text"><![CDATA[知识准备定长数组12--定长数字型数组，长度为10type identifer is varray(10) of number; 如：12345678910111213set serveroutput on;declare type v_array is varray(10) of number; v_index number; v_arr v_array; v_arr := v_array(1,23,567,233,66);begin for index in 1..v_arr.count loop dbms_output.put_line(v_arr(v_index)); end loop;end;/ 变长数组12--可变长数字型数组，数组中元素长度为10，角标索引为integer自动增长type identifer is table of number(10) index by binary_integer; 如：12345678910111213set serveroutput on;declare type v_array is is table of number(10) index by binary_integer; v_index number; v_arr v_array; v_arr := v_array(1,23,567,233,66);begin for index in 1..v_arr.count loop dbms_output.put_line(v_arr(v_index)); end loop;end;/ 实战 批量更新用户的在线状态，userid 为用户id，useronline 为用户的在线状态，因用户的数量无法确定，此处采用可变长数组的定义方式： 12345678910111213141516171819202122232425262728293031323334353637383940414243--为了在存储过程中可以使用自定义的数组类型，此处使用程序包的方式create or replace package useronline_pkgas type int_array is table of number(10) index by binary_integer; procedure batch_updateuseronline (v_userid in int_array, v_onlines in int_array);end useronline_pkg;/--声明程序包体create or replace package body useronline_pkgas procedure batch_updateuseronline( v_userid in int_array, v_onlines in int_array ) as user_id number(10); user_online number(1); v_index number(8); begin for v_index in 1..v_userid.count loop user_id := v_userid(v_index); user_online := v_onlines(v_index); --若用户的在线状态的记录已经存在，则只更新其在线状态；否则，则插入一条记录 merge into useronline tb using (select count(userid) as cnt from useronline where userid=user_id) tb_tmp on(tb_tmp.cnt &lt;&gt; 0) when matched then update set tb.onlines=user_online, tb.updatetime=sysdate where userid=user_id when not matched then insert values(user_id, user_online, sysdate); commit; end loop; end batch_updateuseronline;end useronline_pkg;/]]></content>
+    </entry>
+
+    
+    <entry>
+      <title><![CDATA[Linux下Oracle服务的开启和关闭]]></title>
+      <url>%2F2016%2F01%2F25%2FLinux-OracleDB-service-startup-and-sutdown%2F</url>
+      <content type="text"><![CDATA[在平时的工作中时而会碰到机房停电，这时我们开发中使用的Oracle数据所在服务器也会关机。这个时候就需要来手动开启Oracle服务，现在作如下总结： Linux下启动Oracle12345678910111213--切换到oracle用户su - oracle--无连接启动sqlplus，并以sysdba的身份登录到数据库sqlplus /nologconn /as sysdba--开启Oracle数据库实例startup--退出sqlplusexit--启动监听器lsnrctl start--退出Oracle用户exit Linux下关闭Oracle123456789su - oraclesqlplus /nologconn /as sysdba--关闭Oracle实例shutdown immediateexit--关闭监听器lsnrctl stopexit Linux下查看监听器状态12345678--切换到Oracle用户su - oraclelsnrctl--查看监听器状态statusexit]]></content>
+    </entry>
+
+    
+  
+  
+</search>
