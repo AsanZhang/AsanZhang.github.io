@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Git,GitHub,Coding,Eclipse," />
+  <meta name="keywords" content="Asan, asan" />
 
 
 
@@ -90,20 +90,22 @@
 
 
 
-<meta name="description" content="最近一直在学习和使用Git作为版本控制系统，并同时使用GitHub和Coding作为自用项目的远程仓库来托管代码。自从Google被墙后，心里就对使用域外的互联网服务产生了阴影，总担心有一天GitHub也会被墙，所有就萌生了是不是可以把自己本地代码同时推送到两个远程仓库的想法，这样可以在一次commit and push把自己的代码同时推送到GitHub和Coding。于是经过一翻Google（没">
+<meta name="description" content="Java 7是至Java 6以来最大幅度的语法更新，“他山之石，可以攻玉”，了解Java 7的新特性和底层相关原理对于自己的编码工作和实践想必会大有裨益。此文为《深入理解Java7：核心技术与最佳实践》一书的读书笔记，此为第一篇，主要和Java7新特性相关。
+在switch语句中使用字符串
+在Java 7之前，switch语句中的条件表达式只能使用和整数兼容的类型：char、byte、short和">
 <meta property="og:type" content="article">
-<meta property="og:title" content="推送Git项目到多个远程仓库">
-<meta property="og:url" content="http://asan.today/2016/05/14/git-push-to-multiple-repositories/index.html">
+<meta property="og:title" content="《深入理解Java7》读书笔记（一）">
+<meta property="og:url" content="http://asan.today/2017/02/09/understanding-Java7-reading-notes/index.html">
 <meta property="og:site_name" content="Asan's workbench">
-<meta property="og:description" content="最近一直在学习和使用Git作为版本控制系统，并同时使用GitHub和Coding作为自用项目的远程仓库来托管代码。自从Google被墙后，心里就对使用域外的互联网服务产生了阴影，总担心有一天GitHub也会被墙，所有就萌生了是不是可以把自己本地代码同时推送到两个远程仓库的想法，这样可以在一次commit and push把自己的代码同时推送到GitHub和Coding。于是经过一翻Google（没">
-<meta property="og:image" content="http://asanzhang.coding.me/gallery2016/blog/git-ssh.png">
-<meta property="og:image" content="http://asanzhang.coding.me/gallery2016/blog/eclipse-gti-clone.png">
-<meta property="og:image" content="http://asanzhang.coding.me/gallery2016/blog/egit-commit-setting.png">
-<meta property="og:updated_time" content="2017-01-25T06:55:52.000Z">
+<meta property="og:description" content="Java 7是至Java 6以来最大幅度的语法更新，“他山之石，可以攻玉”，了解Java 7的新特性和底层相关原理对于自己的编码工作和实践想必会大有裨益。此文为《深入理解Java7：核心技术与最佳实践》一书的读书笔记，此为第一篇，主要和Java7新特性相关。
+在switch语句中使用字符串
+在Java 7之前，switch语句中的条件表达式只能使用和整数兼容的类型：char、byte、short和">
+<meta property="og:updated_time" content="2017-02-09T13:07:07.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="推送Git项目到多个远程仓库">
-<meta name="twitter:description" content="最近一直在学习和使用Git作为版本控制系统，并同时使用GitHub和Coding作为自用项目的远程仓库来托管代码。自从Google被墙后，心里就对使用域外的互联网服务产生了阴影，总担心有一天GitHub也会被墙，所有就萌生了是不是可以把自己本地代码同时推送到两个远程仓库的想法，这样可以在一次commit and push把自己的代码同时推送到GitHub和Coding。于是经过一翻Google（没">
-<meta name="twitter:image" content="http://asanzhang.coding.me/gallery2016/blog/git-ssh.png">
+<meta name="twitter:title" content="《深入理解Java7》读书笔记（一）">
+<meta name="twitter:description" content="Java 7是至Java 6以来最大幅度的语法更新，“他山之石，可以攻玉”，了解Java 7的新特性和底层相关原理对于自己的编码工作和实践想必会大有裨益。此文为《深入理解Java7：核心技术与最佳实践》一书的读书笔记，此为第一篇，主要和Java7新特性相关。
+在switch语句中使用字符串
+在Java 7之前，switch语句中的条件表达式只能使用和整数兼容的类型：char、byte、short和">
 
 
 
@@ -131,13 +133,13 @@
 
 
 
-  <link rel="canonical" href="http://asan.today/2016/05/14/git-push-to-multiple-repositories/"/>
+  <link rel="canonical" href="http://asan.today/2017/02/09/understanding-Java7-reading-notes/"/>
 
 
 
 
 
-  <title> 推送Git项目到多个远程仓库 | Asan's workbench </title>
+  <title> 《深入理解Java7》读书笔记（一） | Asan's workbench </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -303,7 +305,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://asan.today/2016/05/14/git-push-to-multiple-repositories/">
+  <link itemprop="mainEntityOfPage" href="http://asan.today/2017/02/09/understanding-Java7-reading-notes/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="Asan">
@@ -327,7 +329,7 @@
             
             
               
-                推送Git项目到多个远程仓库
+                《深入理解Java7》读书笔记（一）
               
             
           </h1>
@@ -342,8 +344,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-05-14T14:50:06+08:00">
-                2016-05-14
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-09T21:05:12+08:00">
+                2017-02-09
               </time>
             
 
@@ -353,28 +355,6 @@
           </span>
 
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/项目管理/" itemprop="url" rel="index">
-                    <span itemprop="name">项目管理</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
 
           
             
@@ -383,8 +363,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2016/05/14/git-push-to-multiple-repositories/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/14/git-push-to-multiple-repositories/" itemprop="commentCount"></span>
+                <a href="/2017/02/09/understanding-Java7-reading-notes/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/02/09/understanding-Java7-reading-notes/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -410,29 +390,40 @@
       
 
       
-        <p>最近一直在学习和使用Git作为版本控制系统，并同时使用<a href="https://github.com/" target="_blank" rel="external">GitHub</a>和<a href="https://coding.net/" target="_blank" rel="external">Coding</a>作为自用项目的远程仓库来托管代码。自从Google被墙后，心里就对使用域外的互联网服务产生了阴影，总担心有一天GitHub也会被墙，所有就萌生了是不是可以把自己本地代码同时推送到两个远程仓库的想法，这样可以在一次<code>commit and push</code>把自己的代码同时推送到GitHub和Coding。于是经过一翻Google（没错，就是Google你没有看错）和摸索，终于得偿所愿，现在把自己的做法分享一下。<a id="more"></a></p>
-<h3 id="选择SSH克隆远程仓库"><a href="#选择SSH克隆远程仓库" class="headerlink" title="选择SSH克隆远程仓库"></a>选择SSH克隆远程仓库</h3><p>虽然GitHub官方推荐使用<a href="https://help.github.com/articles/which-remote-url-should-i-use/" target="_blank" rel="external"><code>HTTPS URLs</code></a>:</p>
-<blockquote>
-<p>The https:// clone URLs are available on all repositories, public and private. These URLs work everywhere–even if you are behind a firewall or proxy.</p>
+        <p>Java 7是至Java 6以来最大幅度的语法更新，“他山之石，可以攻玉”，了解Java 7的新特性和底层相关原理对于自己的编码工作和实践想必会大有裨益。此文为<a href="https://book.douban.com/subject/10734875/" target="_blank" rel="external">《深入理解Java7：核心技术与最佳实践》</a>一书的读书笔记，此为第一篇，主要和Java7新特性相关。</p>
+<h3 id="在switch语句中使用字符串"><a href="#在switch语句中使用字符串" class="headerlink" title="在switch语句中使用字符串"></a>在switch语句中使用字符串</h3><ul>
+<li><p>在Java 7之前，switch语句中的条件表达式只能使用和整数兼容的类型：<code>char</code>、<code>byte</code>、<code>short</code>和<code>int</code>，以及这些基本类型对应的包装类型<code>Character</code>、<code>Byte</code>、<code>Short</code>和<code>Integer</code>；</p>
+</li>
+<li><p>在Java 7中，在上述的支持外，还新增了对字符串<code>String</code>类型的支持，即可以在switch语句的表达式中使用字符串参数，在case子句中使用字符串常量，一个简单用法如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">* 根据性别向姓名后加上称谓</div><div class="line">*/</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Titile</span></span>&#123;</div><div class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">generate</span><span class="params">(String name, String gender)</span></span>&#123;</div><div class="line">    String title = <span class="string">""</span>;</div><div class="line">    <span class="keyword">switch</span>(gender)&#123;</div><div class="line">      <span class="keyword">case</span> <span class="string">"男"</span>:</div><div class="line">        title = name + <span class="string">"先生"</span>;</div><div class="line">        <span class="keyword">break</span>;</div><div class="line">      <span class="keyword">case</span> <span class="string">"女"</span>:</div><div class="line">        title = name + <span class="string">"女士"</span>;</div><div class="line">        <span class="keyword">break</span>;</div><div class="line">      <span class="keyword">default</span>:</div><div class="line">        title = name;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> title;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>switch语句中的表达式和case子句的值均不可为<code>null</code>，如果为<code>null</code>前者会在运行时抛出<code>NullPointerException</code>，后者则直接无法通过编译；</p>
+</li>
+<li><p>switch语句要求各个其case子句的值不能相同，这点对字符串也适用。Java中字符串是可以包含Unioncode转义字符的，而Java编译器对case相同值的检查是在对相关Java源代码进行词法转换后进行的，所以如果Java源代码中看到的值是不一样的，但是经词法处理后却是一样的，这样就会造成编译错误；</p>
+</li>
+<li><p><strong>实现原理</strong>：这个新特性是在编译器级别上实现，在JVM和字节码上仍是原来的实现方式，即只能使用和整数兼容的类型。虽然在Java源代码中switch使用了字符串，但是编译器会根据源代码的含义来进行转换，将字符串转换成与整数类型兼容的格式；</p>
+</li>
+<li><p><strong>最佳实践</strong>：对于switch语句，如果在代码中有多个地方来枚举字符串，就考虑使用枚举类型进行替换。</p>
+</li>
+</ul>
+<h3 id="数字字面量的增强与改进"><a href="#数字字面量的增强与改进" class="headerlink" title="数字字面量的增强与改进"></a>数字字面量的增强与改进</h3><blockquote>
+<p>在编程语言中，字面量（literal）指的是在源代码中直接表示的一个固定值。</p>
 </blockquote>
-<p>但还是强烈推荐实用SSH的方式来完成和远程仓库连接过程中的认证，这样不用每次都输入用户名和密码（如果你有更好办法，欢迎留言），变的十分方便。具体的可以在你远程仓库选择SSH URL的方式，举个GitHub的栗子：</p>
-<p><img src="http://asanzhang.coding.me/gallery2016/blog/git-ssh.png" alt=""></p>
-<h3 id="克隆远程仓库到工作目录"><a href="#克隆远程仓库到工作目录" class="headerlink" title="克隆远程仓库到工作目录"></a>克隆远程仓库到工作目录</h3><p>作为一个Java developer，平时经常使用的IDE是Eclipse（用过一段时间的IntelliJ IDEA，感觉很别扭，可能是还没习惯，反正没再继续使用，也许将来会使用，谁知道呢），所以我这里将通过Eclipse来把远程仓库克隆到我本地工作目录。拷贝<code>SSH URL</code>（我这里使用Coding来克隆，主要是因为其在国内速度快，后面将添加GitHub作为另一个远程仓库。成功添加GitHub后便可以只从Coding拉取代码，而同时向Coding和GitHub推送代码了，这样既保证拉取时有足够快的速度又可以备份一份代码到GitHib，简直简直爽到没朋友啊。）后，粘贴到Eclipse中，使用<code>Import Projects form Git</code>导入项目：</p>
-<p><img src="http://asanzhang.coding.me/gallery2016/blog/eclipse-gti-clone.png" alt=""></p>
-<p>粘贴后不需要进行任何设置，直接<code>Next&gt;</code>进行后面的项目导入操作，这里不再赘述。</p>
-<h3 id="添加另一个远程仓库"><a href="#添加另一个远程仓库" class="headerlink" title="添加另一个远程仓库"></a>添加另一个远程仓库</h3><p>由于上面我是从Coding上克隆仓库到工作目录的，所以这里我将演示如何再添加GitHub作为另一个远程仓库。如果已经配置好了SSH验证方式，并在GitHub添加了你<code>SSH Key</code>，在终端（Windows下你可能使用的是GitBash）进入你当前项目工作目录下的<code>.git</code>目录并查看：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">~/your_working_dir/.git on git:master o</div><div class="line">$ ll</div><div class="line">-rw-r--r--  1 asan  staff   119  5 14 15:22 FETCH_HEAD</div><div class="line">-rw-r--r--  1 asan  staff    23  5 14 15:22 HEAD</div><div class="line">drwxr-xr-x  2 asan  staff    68  5 14 15:22 branches</div><div class="line">-rw-r--r--  1 asan  staff   281  5 14 15:22 config</div><div class="line">drwxr-xr-x  2 asan  staff    68  5 14 15:22 hooks</div><div class="line">-rw-r--r--  1 asan  staff  4064  5 14 15:23 index</div><div class="line">drwxr-xr-x  4 asan  staff   136  5 14 15:22 logs</div><div class="line">drwxr-xr-x  4 asan  staff   136  5 14 15:22 objects</div><div class="line">drwxr-xr-x  5 asan  staff   170  5 14 15:22 refs</div></pre></td></tr></table></figure>
-<p>用vim打开文件<code>config</code>，可以看到</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">$ vi config</div><div class="line"></div><div class="line">[core]</div><div class="line">        repositoryformatversion = 0</div><div class="line">        filemode = <span class="literal">true</span></div><div class="line">        logallrefupdates = <span class="literal">true</span></div><div class="line">        precomposeunicode = <span class="literal">true</span></div><div class="line">[remote <span class="string">"origin"</span>]</div><div class="line">        url = git@git.coding.net:username/your_project.git</div><div class="line">        fetch = +refs/heads/*:refs/remotes/origin/*</div><div class="line">[branch <span class="string">"master"</span>]</div><div class="line">        remote = origin</div><div class="line">        merge = refs/heads/master</div><div class="line">~</div><div class="line">~</div><div class="line">~</div><div class="line"><span class="string">"config"</span> 11L, 281C</div></pre></td></tr></table></figure>
-<p>这时我们在<code>[remote &quot;origin&quot;]</code>节点下添加GitHub的克隆SSH URL，如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">$ vi config</div><div class="line"></div><div class="line">[core]</div><div class="line">        repositoryformatversion = 0</div><div class="line">        filemode = <span class="literal">true</span></div><div class="line">        logallrefupdates = <span class="literal">true</span></div><div class="line">        precomposeunicode = <span class="literal">true</span></div><div class="line">[remote <span class="string">"origin"</span>]</div><div class="line">        url = git@git.coding.net:username/your_project.git</div><div class="line">        url = git@github.com:username/your_project.git</div><div class="line">        fetch = +refs/heads/*:refs/remotes/origin/*</div><div class="line">[branch <span class="string">"master"</span>]</div><div class="line">        remote = origin</div><div class="line">        merge = refs/heads/master</div><div class="line">~</div><div class="line">~</div><div class="line">~</div><div class="line"><span class="string">"config"</span> 11L, 281C</div></pre></td></tr></table></figure>
-<p>保存并退出vim，当然，使用命令行也可以直接添加，命令格式如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git remote <span class="built_in">set</span>-url --add origin git@github.com:username/your_project.git</div></pre></td></tr></table></figure>
-<p>此时我们执行命令<code>git remote show origin</code>会发现，后来添加的远程仓库已经是另外一个Push URL了：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">$ git remote show origin</div><div class="line">* remote origin</div><div class="line">  Fetch URL: git@git.coding.net:username/your_project.git</div><div class="line">  Push  URL: git@git.coding.net:username/your_project.git</div><div class="line">  Push  URL: git@github.com:username/your_project.git</div><div class="line">  HEAD branch: master</div><div class="line">  Remote branch:</div><div class="line">    master tracked</div><div class="line">  Local branch configured <span class="keyword">for</span> <span class="string">'git pull'</span>:</div><div class="line">    master merges with remote master</div><div class="line">  Local ref configured <span class="keyword">for</span> <span class="string">'git push'</span>:</div><div class="line">    master pushes to master (up to date)</div></pre></td></tr></table></figure>
-<p>至此，我们就实现了推送Git项目到多个远程仓库，只从Coding拉取代码，而同时向Coding和GitHub推送代码。</p>
-<h3 id="附赠"><a href="#附赠" class="headerlink" title="附赠"></a>附赠</h3><p>在Eclipse中<code>commit</code>代码时，如果打开的是一个<code>Staging View</code>而不是一个对话框，则可以按附图中的方法进行设置：把设置项<code>Useing Staging View to commit instead of Commit Dialog</code>前的对勾去掉。但这个设置可能仅对Mac OSX下的Eclipse有用，因为我在Windows版本的Eclipse中并没有找到对应的设置，当然两个平台都是最新版本的<code>Eclipse Mars</code>，希望对碰到类似问题的童鞋有所帮助。</p>
-<p><img src="http://asanzhang.coding.me/gallery2016/blog/egit-commit-setting.png" alt=""></p>
+<ul>
+<li><p>在之前八/十/十六进制整数字面量的基础上，Java7新增二进制整数字面量，通过在数字前面添加“0b”或“0B”来表示；举个栗子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> <span class="keyword">static</span> java.lang.System.out;</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BinaryIntegerLiteral</span></span>&#123;</div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">display</span><span class="params">()</span></span>&#123;</div><div class="line">    out.println(<span class="number">0b001001</span>);<span class="comment">//输出数字 9</span></div><div class="line">    out.println(<span class="number">0B001110</span>);<span class="comment">//输出数字 14</span></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>优化长数字字面量的表示，使用<strong>任意多个</strong><code>下划线</code>的方式对长数字字面量进行分割，但是<strong>下划线只能用在数字之间</strong>。举个栗子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> <span class="keyword">static</span> java.lang.System.out;</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">underscore</span></span>&#123;</div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">display</span><span class="params">()</span></span>&#123;</div><div class="line">    out.println(<span class="number">1_500___000</span>);<span class="comment">//输出数字 1500000</span></div><div class="line">    out.println(<span class="number">5_6.3_4</span>);<span class="comment">//输出数字 56.34</span></div><div class="line">    out.println(<span class="number">89_____3_1</span>);<span class="comment">//输出数字 8931</span></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="优化的异常处理"><a href="#优化的异常处理" class="headerlink" title="优化的异常处理"></a>优化的异常处理</h3><ul>
+<li>异常处理分为受检异常（checked exception）</li>
+</ul>
+<h3 id="增加try-with-resources语句"><a href="#增加try-with-resources语句" class="headerlink" title="增加try-with-resources语句"></a>增加try-with-resources语句</h3><h3 id="优化变长参数的方法调用"><a href="#优化变长参数的方法调用" class="headerlink" title="优化变长参数的方法调用"></a>优化变长参数的方法调用</h3><ul>
+<li>在Java7之前，向可变参数方法的参数类型如果是<strong>non-refiable</strong>的，比如泛型，则会产生警告信息；</li>
+<li>在Java7中对上述情况作出了改进，可以在参数可变的方法或构造方法上使用注解<code>@SasfeVarargs</code>，但前提是这些方法必须是<code>static</code>或<code>final</code>的，并且你可以确定在这些方法实现中对泛型参数的处理不会引发类型安全问。</li>
+</ul>
 
       
     </div>
@@ -454,25 +445,13 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/Git/" rel="tag"># Git</a>
-          
-            <a href="/tags/GitHub/" rel="tag"># GitHub</a>
-          
-            <a href="/tags/Coding/" rel="tag"># Coding</a>
-          
-            <a href="/tags/Eclipse/" rel="tag"># Eclipse</a>
-          
-        </div>
-      
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/05/09/git-pull-error/" rel="next" title="Git拉取命令报错">
-                <i class="fa fa-chevron-left"></i> Git拉取命令报错
+              <a href="/2016/06/05/how-download-SPRING-FRAMEWORK-jars-manually/" rel="next" title="如何手动下载SPRING-FRAMEWORK的jars">
+                <i class="fa fa-chevron-left"></i> 如何手动下载SPRING-FRAMEWORK的jars
               </a>
             
           </div>
@@ -480,10 +459,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/05/17/macOS-homebrew-install-MySQL/" rel="prev" title="macOS下通过Homebrew安装MySQL">
-                macOS下通过Homebrew安装MySQL <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -498,10 +473,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2016/05/14/git-push-to-multiple-repositories/"
-     data-title="推送Git项目到多个远程仓库"
+        <div class="ds-share flat" data-thread-key="2017/02/09/understanding-Java7-reading-notes/"
+     data-title="《深入理解Java7》读书笔记（一）"
      data-content=""
-     data-url="http://asan.today/2016/05/14/git-push-to-multiple-repositories/">
+     data-url="http://asan.today/2017/02/09/understanding-Java7-reading-notes/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -528,8 +503,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/05/14/git-push-to-multiple-repositories/"
-           data-title="推送Git项目到多个远程仓库" data-url="http://asan.today/2016/05/14/git-push-to-multiple-repositories/">
+      <div class="ds-thread" data-thread-key="2017/02/09/understanding-Java7-reading-notes/"
+           data-title="《深入理解Java7》读书笔记（一）" data-url="http://asan.today/2017/02/09/understanding-Java7-reading-notes/">
       </div>
     
   </div>
@@ -649,7 +624,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#选择SSH克隆远程仓库"><span class="nav-number">1.</span> <span class="nav-text">选择SSH克隆远程仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#克隆远程仓库到工作目录"><span class="nav-number">2.</span> <span class="nav-text">克隆远程仓库到工作目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加另一个远程仓库"><span class="nav-number">3.</span> <span class="nav-text">添加另一个远程仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#附赠"><span class="nav-number">4.</span> <span class="nav-text">附赠</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#在switch语句中使用字符串"><span class="nav-number">1.</span> <span class="nav-text">在switch语句中使用字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数字字面量的增强与改进"><span class="nav-number">2.</span> <span class="nav-text">数字字面量的增强与改进</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优化的异常处理"><span class="nav-number">3.</span> <span class="nav-text">优化的异常处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#增加try-with-resources语句"><span class="nav-number">4.</span> <span class="nav-text">增加try-with-resources语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优化变长参数的方法调用"><span class="nav-number">5.</span> <span class="nav-text">优化变长参数的方法调用</span></a></li></ol></div>
             
 
           </div>
