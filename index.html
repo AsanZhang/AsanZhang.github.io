@@ -389,43 +389,14 @@
 
       
         
-          
-            <p>Java 7是至Java 6以来最大幅度的语法更新，“他山之石，可以攻玉”，了解Java 7的新特性和底层相关原理对于自己的编码工作和实践想必会大有裨益。此文为<a href="https://book.douban.com/subject/10734875/" target="_blank" rel="external">《深入理解Java7：核心技术与最佳实践》</a>一书的读书笔记，此为第一篇，主要和Java7新特性相关。</p>
-<h3 id="在switch语句中使用字符串"><a href="#在switch语句中使用字符串" class="headerlink" title="在switch语句中使用字符串"></a>在switch语句中使用字符串</h3><ul>
-<li><p>在Java 7之前，switch语句中的条件表达式只能使用和整数兼容的类型：<code>char</code>、<code>byte</code>、<code>short</code>和<code>int</code>，以及这些基本类型对应的包装类型<code>Character</code>、<code>Byte</code>、<code>Short</code>和<code>Integer</code>；</p>
-</li>
-<li><p>在Java 7中，在上述的支持外，还新增了对字符串<code>String</code>类型的支持，即可以在switch语句的表达式中使用字符串参数，在case子句中使用字符串常量，一个简单用法如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">* 根据性别向姓名后加上称谓</div><div class="line">*/</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Titile</span></span>&#123;</div><div class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">generate</span><span class="params">(String name, String gender)</span></span>&#123;</div><div class="line">    String title = <span class="string">""</span>;</div><div class="line">    <span class="keyword">switch</span>(gender)&#123;</div><div class="line">      <span class="keyword">case</span> <span class="string">"男"</span>:</div><div class="line">        title = name + <span class="string">"先生"</span>;</div><div class="line">        <span class="keyword">break</span>;</div><div class="line">      <span class="keyword">case</span> <span class="string">"女"</span>:</div><div class="line">        title = name + <span class="string">"女士"</span>;</div><div class="line">        <span class="keyword">break</span>;</div><div class="line">      <span class="keyword">default</span>:</div><div class="line">        title = name;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> title;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-<li><p>switch语句中的表达式和case子句的值均不可为<code>null</code>，如果为<code>null</code>前者会在运行时抛出<code>NullPointerException</code>，后者则直接无法通过编译；</p>
-</li>
-<li><p>switch语句要求各个其case子句的值不能相同，这点对字符串也适用。Java中字符串是可以包含Unioncode转义字符的，而Java编译器对case相同值的检查是在对相关Java源代码进行词法转换后进行的，所以如果Java源代码中看到的值是不一样的，但是经词法处理后却是一样的，这样就会造成编译错误；</p>
-</li>
-<li><p><strong>实现原理</strong>：这个新特性是在编译器级别上实现，在JVM和字节码上仍是原来的实现方式，即只能使用和整数兼容的类型。虽然在Java源代码中switch使用了字符串，但是编译器会根据源代码的含义来进行转换，将字符串转换成与整数类型兼容的格式；</p>
-</li>
-<li><p><strong>最佳实践</strong>：对于switch语句，如果在代码中有多个地方来枚举字符串，就考虑使用枚举类型进行替换。</p>
-</li>
-</ul>
-<h3 id="数字字面量的增强与改进"><a href="#数字字面量的增强与改进" class="headerlink" title="数字字面量的增强与改进"></a>数字字面量的增强与改进</h3><blockquote>
-<p>在编程语言中，字面量（literal）指的是在源代码中直接表示的一个固定值。</p>
-</blockquote>
-<ul>
-<li><p>在之前八/十/十六进制整数字面量的基础上，Java7新增二进制整数字面量，通过在数字前面添加“0b”或“0B”来表示；举个栗子：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> <span class="keyword">static</span> java.lang.System.out;</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BinaryIntegerLiteral</span></span>&#123;</div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">display</span><span class="params">()</span></span>&#123;</div><div class="line">    out.println(<span class="number">0b001001</span>);<span class="comment">//输出数字 9</span></div><div class="line">    out.println(<span class="number">0B001110</span>);<span class="comment">//输出数字 14</span></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-<li><p>优化长数字字面量的表示，使用<strong>任意多个</strong><code>下划线</code>的方式对长数字字面量进行分割，但是<strong>下划线只能用在数字之间</strong>。举个栗子：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> <span class="keyword">static</span> java.lang.System.out;</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">underscore</span></span>&#123;</div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">display</span><span class="params">()</span></span>&#123;</div><div class="line">    out.println(<span class="number">1_500___000</span>);<span class="comment">//输出数字 1500000</span></div><div class="line">    out.println(<span class="number">5_6.3_4</span>);<span class="comment">//输出数字 56.34</span></div><div class="line">    out.println(<span class="number">89_____3_1</span>);<span class="comment">//输出数字 8931</span></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="优化的异常处理"><a href="#优化的异常处理" class="headerlink" title="优化的异常处理"></a>优化的异常处理</h3><ul>
-<li>异常处理分为受检异常（checked exception）</li>
-</ul>
-<h3 id="增加try-with-resources语句"><a href="#增加try-with-resources语句" class="headerlink" title="增加try-with-resources语句"></a>增加try-with-resources语句</h3><h3 id="优化变长参数的方法调用"><a href="#优化变长参数的方法调用" class="headerlink" title="优化变长参数的方法调用"></a>优化变长参数的方法调用</h3><ul>
-<li>在Java7之前，向可变参数方法的参数类型如果是<strong>non-refiable</strong>的，比如泛型，则会产生警告信息；</li>
-<li>在Java7中对上述情况作出了改进，可以在参数可变的方法或构造方法上使用注解<code>@SasfeVarargs</code>，但前提是这些方法必须是<code>static</code>或<code>final</code>的，并且你可以确定在这些方法实现中对泛型参数的处理不会引发类型安全问。</li>
-</ul>
-
-          
+          <p>Java 7是至Java 6以来最大幅度的语法更新，“他山之石，可以攻玉”，了解Java 7的新特性和底层相关原理对于自己的编码工作和实践想必会大有裨益。此文为<a href="https://book.douban.com/subject/10734875/">《深入理解Java7：核心技术与最佳实践》</a>一书的读书笔记，此为第一篇，主要记录Java7新特性。
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/02/09/understanding-Java7-reading-notes-1/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
