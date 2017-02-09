@@ -846,7 +846,7 @@ pre .javascript .function {
   transition-delay: 0s;
 }
 .btn:hover,
-.post-more-link .btn:hover {
+.post-button .btn:hover {
   border-color: #222;
   color: #fff;
   background: #222;
@@ -1420,10 +1420,30 @@ pre .javascript .function {
     display: none;
   }
 }
-.post-more-link {
+.social-like {
+  font-size: 14px;
+  height: 20px;
+  text-align: center;
+  border-top: 1px solid #eee;
+  padding-top: 9px;
+  margin-top: 45px;
+  display: flex;
+  justify-content: center;
+}
+.vk_like {
+  width: 85px;
+  height: 21px;
+  padding-top: 7px;
+  align-self: center;
+}
+.fb_like {
+  height: 30px;
+  align-self: center;
+}
+.post-button {
   margin-top: 50px;
 }
-.post-more-link .btn {
+.post-button .btn {
   color: #555;
   font-size: 14px;
   background: #fff;
@@ -1431,7 +1451,7 @@ pre .javascript .function {
   line-height: 2;
   margin: 0 4px 8px 4px;
 }
-.post-more-link .fa-fw {
+.post-button .fa-fw {
   width: 1.285714285714286em;
   text-align: left;
 }
@@ -1446,7 +1466,7 @@ pre .javascript .function {
 }
 .post-nav {
   display: table;
-  margin-top: 60px;
+  margin-top: 15px;
   width: 100%;
   border-top: 1px solid #eee;
 }
@@ -1686,7 +1706,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #e02f67;
+  background: #c67c96;
 }
 .links-of-blogroll {
   font-size: 13px;
