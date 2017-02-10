@@ -93,16 +93,22 @@
 
 
 
-<meta name="description" content="Java 7是至Java 6以来最大幅度的语法更新，“他山之石，可以攻玉”，了解Java 7的新特性和底层相关原理对于自己的编码工作和实践想必会大有裨益。此文为《深入理解Java7：核心技术与最佳实践》一书的读书笔记，此为第一篇，主要记录Java7新特性。">
+<meta name="description" content="Java 7是至Java 6以来最大幅度的语法更新，“他山之石，可以攻玉”，了解Java 7的新特性和底层相关原理对于自己的编码工作和实践想必会大有裨益。此文为《深入理解Java7：核心技术与最佳实践》一书的读书笔记，此为第一篇，主要记录Java7新特性。
+在switch语句中使用字符串
+在Java 7之前，switch语句中的条件表达式只能使用和整数兼容的类型：char、byte、short和i">
 <meta property="og:type" content="article">
 <meta property="og:title" content="《深入理解Java7：核心技术与最佳实践》读书笔记（一）">
 <meta property="og:url" content="http://asan.today/2017/02/09/understanding-Java7-reading-notes-1/index.html">
 <meta property="og:site_name" content="Asan's workbench">
-<meta property="og:description" content="Java 7是至Java 6以来最大幅度的语法更新，“他山之石，可以攻玉”，了解Java 7的新特性和底层相关原理对于自己的编码工作和实践想必会大有裨益。此文为《深入理解Java7：核心技术与最佳实践》一书的读书笔记，此为第一篇，主要记录Java7新特性。">
-<meta property="og:updated_time" content="2017-02-09T14:00:45.000Z">
+<meta property="og:description" content="Java 7是至Java 6以来最大幅度的语法更新，“他山之石，可以攻玉”，了解Java 7的新特性和底层相关原理对于自己的编码工作和实践想必会大有裨益。此文为《深入理解Java7：核心技术与最佳实践》一书的读书笔记，此为第一篇，主要记录Java7新特性。
+在switch语句中使用字符串
+在Java 7之前，switch语句中的条件表达式只能使用和整数兼容的类型：char、byte、short和i">
+<meta property="og:updated_time" content="2017-02-10T00:11:17.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《深入理解Java7：核心技术与最佳实践》读书笔记（一）">
-<meta name="twitter:description" content="Java 7是至Java 6以来最大幅度的语法更新，“他山之石，可以攻玉”，了解Java 7的新特性和底层相关原理对于自己的编码工作和实践想必会大有裨益。此文为《深入理解Java7：核心技术与最佳实践》一书的读书笔记，此为第一篇，主要记录Java7新特性。">
+<meta name="twitter:description" content="Java 7是至Java 6以来最大幅度的语法更新，“他山之石，可以攻玉”，了解Java 7的新特性和底层相关原理对于自己的编码工作和实践想必会大有裨益。此文为《深入理解Java7：核心技术与最佳实践》一书的读书笔记，此为第一篇，主要记录Java7新特性。
+在switch语句中使用字符串
+在Java 7之前，switch语句中的条件表达式只能使用和整数兼容的类型：char、byte、short和i">
 
 
 
@@ -418,7 +424,7 @@
       
 
       
-        <p>Java 7是至Java 6以来最大幅度的语法更新，“他山之石，可以攻玉”，了解Java 7的新特性和底层相关原理对于自己的编码工作和实践想必会大有裨益。此文为<a href="https://book.douban.com/subject/10734875/" target="_blank" rel="external">《深入理解Java7：核心技术与最佳实践》</a>一书的读书笔记，此为第一篇，主要记录Java7新特性。<a id="more"></a></p>
+        <p>Java 7是至Java 6以来最大幅度的语法更新，“他山之石，可以攻玉”，了解Java 7的新特性和底层相关原理对于自己的编码工作和实践想必会大有裨益。此文为<a href="https://book.douban.com/subject/10734875/" target="_blank" rel="external">《深入理解Java7：核心技术与最佳实践》</a>一书的读书笔记，此为第一篇，主要记录Java7新特性。</p>
 <h3 id="在switch语句中使用字符串"><a href="#在switch语句中使用字符串" class="headerlink" title="在switch语句中使用字符串"></a>在switch语句中使用字符串</h3><ul>
 <li><p>在Java 7之前，switch语句中的条件表达式只能使用和整数兼容的类型：<code>char</code>、<code>byte</code>、<code>short</code>和<code>int</code>，以及这些基本类型对应的包装类型<code>Character</code>、<code>Byte</code>、<code>Short</code>和<code>Integer</code>；</p>
 </li>
@@ -445,8 +451,17 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> <span class="keyword">static</span> java.lang.System.out;</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">underscore</span></span>&#123;</div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">display</span><span class="params">()</span></span>&#123;</div><div class="line">    out.println(<span class="number">1_500___000</span>);<span class="comment">//输出数字 1500000</span></div><div class="line">    out.println(<span class="number">5_6.3_4</span>);<span class="comment">//输出数字 56.34</span></div><div class="line">    out.println(<span class="number">89_____3_1</span>);<span class="comment">//输出数字 8931</span></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 </li>
 </ul>
-<h3 id="优化的异常处理"><a href="#优化的异常处理" class="headerlink" title="优化的异常处理"></a>优化的异常处理</h3><ul>
-<li>异常处理分为受检异常（checked exception）</li>
+<h3 id="异常处理"><a href="#异常处理" class="headerlink" title="异常处理"></a>异常处理</h3><ul>
+<li>异常分为受检异常（checked exception）和非受检异常（unchecked exception），是否受检是相对于编译器而言的；</li>
+<li>由于编译器需要检查异常的合法性，受检异常所在方法的使用者则必须进行<code>try-catch-finally</code>处理，这个时候受检异常就成为API的一部分，而非受检异常则不会有这样的情况；</li>
+<li><strong>最佳实践</strong>：<ul>
+<li>程序中的自定义异常要自己的层次结构，最好与程序的抽象层次（如典型3层web应用：展示层、业务层和数据访问层）相对应；</li>
+<li>程序中出现的各种错误都需应该一个异常类与之对应，每一个抽象层次都应该定义一个基本异常类；</li>
+<li>异常在跨越程序抽象层次边界时，异常包装成上一个调用栈（或抽象层次）的基本异常类，以保证异常只出现其对应的抽象层次中；</li>
+<li>异常要包含足够的信息，可以通过添加所需的域或方法来实现；</li>
+<li>适当的区分异常和错误提示：异常是程序中的错误，而错误则是用户不当操作程序引起的，要避免让用户看到与异常相关的信息。</li>
+</ul>
+</li>
 </ul>
 <h3 id="增加try-with-resources语句"><a href="#增加try-with-resources语句" class="headerlink" title="增加try-with-resources语句"></a>增加try-with-resources语句</h3><h3 id="优化变长参数的方法调用"><a href="#优化变长参数的方法调用" class="headerlink" title="优化变长参数的方法调用"></a>优化变长参数的方法调用</h3><ul>
 <li>在Java7之前，向可变参数方法的参数类型如果是<strong>non-refiable</strong>的，比如泛型，则会产生警告信息；</li>
@@ -666,7 +681,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#在switch语句中使用字符串"><span class="nav-number">1.</span> <span class="nav-text">在switch语句中使用字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数字字面量的增强与改进"><span class="nav-number">2.</span> <span class="nav-text">数字字面量的增强与改进</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优化的异常处理"><span class="nav-number">3.</span> <span class="nav-text">优化的异常处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#增加try-with-resources语句"><span class="nav-number">4.</span> <span class="nav-text">增加try-with-resources语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优化变长参数的方法调用"><span class="nav-number">5.</span> <span class="nav-text">优化变长参数的方法调用</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#在switch语句中使用字符串"><span class="nav-number">1.</span> <span class="nav-text">在switch语句中使用字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数字字面量的增强与改进"><span class="nav-number">2.</span> <span class="nav-text">数字字面量的增强与改进</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#异常处理"><span class="nav-number">3.</span> <span class="nav-text">异常处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#增加try-with-resources语句"><span class="nav-number">4.</span> <span class="nav-text">增加try-with-resources语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优化变长参数的方法调用"><span class="nav-number">5.</span> <span class="nav-text">优化变长参数的方法调用</span></a></li></ol></div>
             
 
           </div>
