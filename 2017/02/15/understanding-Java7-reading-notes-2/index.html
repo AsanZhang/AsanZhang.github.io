@@ -99,7 +99,7 @@
 <meta property="og:url" content="http://asan.today/2017/02/15/understanding-Java7-reading-notes-2/index.html">
 <meta property="og:site_name" content="Asan's workbench">
 <meta property="og:description" content="这一篇为《深入理解Java7：核心技术与最佳实践》的第二篇读书笔记，主要记录的是Java语言的动态性。我们知道Java本身是一种静态类型的高级编程语言，即其源代码在编译时需要进行类型检查。我们这里所说的动态性不是指类型上的，而是使用方式上的动态。为了对Java语言的动态性有一个全面的了解，此处所涉及的内容不仅有Java7的新特性，还包括了之前版本就有的特性，如对脚本语言支持的API、反射API和动">
-<meta property="og:updated_time" content="2017-02-15T12:53:22.000Z">
+<meta property="og:updated_time" content="2017-02-16T14:19:06.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《深入理解Java7：核心技术与最佳实践》读书笔记（二）">
 <meta name="twitter:description" content="这一篇为《深入理解Java7：核心技术与最佳实践》的第二篇读书笔记，主要记录的是Java语言的动态性。我们知道Java本身是一种静态类型的高级编程语言，即其源代码在编译时需要进行类型检查。我们这里所说的动态性不是指类型上的，而是使用方式上的动态。为了对Java语言的动态性有一个全面的了解，此处所涉及的内容不仅有Java7的新特性，还包括了之前版本就有的特性，如对脚本语言支持的API、反射API和动">
@@ -457,13 +457,26 @@
 <h3 id="运行时动态特性之动态代理"><a href="#运行时动态特性之动态代理" class="headerlink" title="运行时动态特性之动态代理"></a>运行时动态特性之动态代理</h3><ul>
 <li><p>动态代理<strong>只支持</strong>对接口的代理，所以使用动态代理需要两个元素即可：    第一个是被代理的接口，第二个是处理接口方法调用的<code>java.lang.reflect.InvocationHandler</code>接口。举个栗子：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UseProxy</span> </span>&#123;</div><div class="line"></div><div class="line">  <span class="comment">// 处理接口方法调用的invocationHandler</span></div><div class="line">  <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">PrintInvocationHandler</span> <span class="keyword">implements</span> <span class="title">InvocationHandler</span></span>&#123;</div><div class="line">    <span class="keyword">private</span> Object targetObj;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">PrintInvocationHandler</span><span class="params">(Object targetObj)</span> </span>&#123;</div><div class="line">      <span class="keyword">this</span>.targetObj = targetObj;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span></span></div><div class="line">      <span class="keyword">throws</span> Throwable &#123;</div><div class="line">      System.out.println(<span class="string">"&gt;&gt;&gt;&gt;&gt; 调用方法"</span> + method.getName());</div><div class="line">      Object result = method.invoke(targetObj, args);</div><div class="line">      <span class="keyword">return</span> <span class="string">"++++++ "</span> + result + <span class="string">" ++++++"</span>;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">    <span class="comment">// 原始的方法调用接收者对象，方便在invocationHandler中执行原始调用</span></div><div class="line">    DoSomeServiceImpl doSomeServiceImpl = <span class="keyword">new</span> DoSomeServiceImpl();</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">    * 代理类实现了指定的接口，并通过invocationHandler对目标类中的接口实现方法进行了增强</div><div class="line">    */</div><div class="line">    DoSomeService proxyInstance =</div><div class="line">      (DoSomeService)Proxy.newProxyInstance(DoSomeServiceImpl.class.getClassLoader(),</div><div class="line">      <span class="keyword">new</span> Class[]&#123;DoSomeService.class&#125;, <span class="keyword">new</span> PrintInvocationHandler(doSomeServiceImpl));</div><div class="line"></div><div class="line">    String res = proxyInstance.doSomeThing(<span class="string">"Python"</span>);</div><div class="line">    <span class="comment">/**</span></div><div class="line">    * &gt;&gt;&gt;&gt;&gt; 调用方法doSomeThing</div><div class="line">    * ++++++ Python, Hello World! ++++++</div><div class="line">    */</div><div class="line">    System.out.println(res);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>​</p>
 </li>
 <li><p>如果被代理的接口不是公开的，那么被代理的接口需要和实现动态代理的代码在同一个包中；</p>
 </li>
 <li><p><strong>最佳实践</strong>：当代理类实现多个接口时，在创建代理类时接口排列顺序尤为重要。即对于相同的一组接口，不同的接口排列顺序所产生的代理类也是不同的。相同排列的接口产生的代理类只会被创建一次，并且创建一次会被缓存起来。如果多个接口中都存在声明类型相同的方法，那么排列顺序中最先出现的接口方法会被选择。</p>
-<p>​</p>
 </li>
+</ul>
+<h3 id="对动态语言的支持"><a href="#对动态语言的支持" class="headerlink" title="对动态语言的支持"></a>对动态语言的支持</h3><ul>
+<li><p>Java 7中的动态语言支持主要是在虚拟机规范的层次上修改的，如新增字节码指令<code>invokedynamic</code>。但是在    代码和API层次上也新增了标准库API<code>java.lang.invoke</code>包；</p>
+</li>
+<li><p>方法句柄是Java中对方法、构造方法和域的一种可执行应用，通过方法句柄可以动态指定方法的接收者 ：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.lang.invoke.MethodHandle;</div><div class="line"><span class="keyword">import</span> java.lang.invoke.MethodType;</div><div class="line"><span class="keyword">import</span> <span class="keyword">static</span> java.lang.invoke.MethodHandles.lookup;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MethodHandleTest</span> </span>&#123;</div><div class="line">  <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">ClassA</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">println</span><span class="params">(String s)</span> </span>&#123;</div><div class="line">      System.out.println(s);</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Throwable </span>&#123;</div><div class="line">    Object obj = System.currentTimeMillis() % <span class="number">2</span> == <span class="number">0</span> ? System.out : <span class="keyword">new</span> ClassA();</div><div class="line">    <span class="comment">// 无论obj最终是哪个实现类，下面这句都能正确调用到println方法。</span></div><div class="line">    getPrintlnMH(obj).invokeExact(<span class="string">"Hello Java!"</span>);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> MethodHandle <span class="title">getPrintlnMH</span><span class="params">(Object reveiver)</span> <span class="keyword">throws</span> Throwable </span>&#123;</div><div class="line">    <span class="comment">// MethodType：代表“方法类型”，包含了方法的返回值（methodType()的第一个参数）和具体参数（methodType()第二个及以后的参数）。</span></div><div class="line">    MethodType mt = MethodType.methodType(<span class="keyword">void</span>.class, String.class);</div><div class="line">    <span class="comment">// lookup()方法来自于MethodHandles.lookup，这句的作用是在指定类中查找符合给定的方法名称、方法类型，并且符合调用权限的方法句柄。</span></div><div class="line">    <span class="comment">/**</span></div><div class="line">		 * 因为这里调用的是一个虚方法，按照Java语言的规则，方法第一个参数是隐式的，</div><div class="line">		 * 代表该方法的接收者，也即是this指向的对象，这个参数以前是放在参数列表中进行传递， 现在提供了bindTo()方法来完成这件事情。</div><div class="line">		 */</div><div class="line">    <span class="keyword">return</span> lookup().findVirtual(reveiver.getClass(), <span class="string">"println"</span>, mt).bindTo(reveiver);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>方法getPrintlnMH()中实际上是模拟了invokevirtual指令的执行过程，只不过它的分派逻辑并非固化在Class文件的字节码上的，而是通过一个具体方法来实现。而这个方法本身的返回值（MethodHandle对象），可以视为对最终调用方法的一个“引用”。</p>
+</blockquote>
+</li>
+</ul>
+<hr>
+<p><strong>参考资料</strong></p>
+<ul>
+<li><a href="http://www.infoq.com/cn/articles/jdk-dynamically-typed-language" target="_blank" rel="external">解析JDK 7的动态类型语言支持</a></li>
 </ul>
 
       
@@ -507,8 +520,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/02/09/understanding-Java7-reading-notes-1/" rel="next" title="《深入理解Java7：核心技术与最佳实践》读书笔记（一）">
-                <i class="fa fa-chevron-left"></i> 《深入理解Java7：核心技术与最佳实践》读书笔记（一）
+              <a href="/2017/02/13/2017-02-essay-of-tech-articles/" rel="next" title="2017-02技术文章摘要总结">
+                <i class="fa fa-chevron-left"></i> 2017-02技术文章摘要总结
               </a>
             
           </div>
@@ -608,7 +621,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -617,7 +630,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -626,7 +639,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-count">25</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -681,7 +694,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#脚本语言支持API"><span class="nav-number">1.</span> <span class="nav-text">脚本语言支持API</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行时动态特性之反射"><span class="nav-number">2.</span> <span class="nav-text">运行时动态特性之反射</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行时动态特性之动态代理"><span class="nav-number">3.</span> <span class="nav-text">运行时动态特性之动态代理</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#脚本语言支持API"><span class="nav-number">1.</span> <span class="nav-text">脚本语言支持API</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行时动态特性之反射"><span class="nav-number">2.</span> <span class="nav-text">运行时动态特性之反射</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行时动态特性之动态代理"><span class="nav-number">3.</span> <span class="nav-text">运行时动态特性之动态代理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对动态语言的支持"><span class="nav-number">4.</span> <span class="nav-text">对动态语言的支持</span></a></li></ol></div>
             
 
           </div>
