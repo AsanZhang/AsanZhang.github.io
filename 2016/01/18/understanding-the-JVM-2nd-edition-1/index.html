@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="HTTP协议,登录," />
+  <meta name="keywords" content="JVM,JVM运行时数据区,对象管理," />
 
 
 
@@ -93,16 +93,20 @@
 
 
 
-<meta name="description" content="此为2017年2月份看过的技术文章的总结与感悟。">
+<meta name="description" content="有关Java虚拟机的这一系列文章都基于《深入理解Java虚拟机：JVM高级特性与最佳实践》这本书，是在阅读这本书过程的一些读书笔记，以梳理和总结相关的知识点为目的。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="2017-02技术文章摘要总结">
-<meta property="og:url" content="http://asan.today/2017/02/13/2017-02-essay-of-tech-articles/index.html">
+<meta property="og:title" content="《深入理解Java虚拟机：JVM高级特性与最佳实践》读书笔记（一）">
+<meta property="og:url" content="http://asan.today/2016/01/18/understanding-the-JVM-2nd-edition-1/index.html">
 <meta property="og:site_name" content="Asan's workbench">
-<meta property="og:description" content="此为2017年2月份看过的技术文章的总结与感悟。">
-<meta property="og:updated_time" content="2017-02-18T07:51:58.000Z">
+<meta property="og:description" content="有关Java虚拟机的这一系列文章都基于《深入理解Java虚拟机：JVM高级特性与最佳实践》这本书，是在阅读这本书过程的一些读书笔记，以梳理和总结相关的知识点为目的。">
+<meta property="og:image" content="http://asanzhang.coding.me/gallery2017/JVM-runtime-data-area.jpg">
+<meta property="og:image" content="http://asanzhang.coding.me/gallery2017/access-to-instance-handle.jpg">
+<meta property="og:image" content="http://asanzhang.coding.me/gallery2017/access-to-instance-pointer.jpg">
+<meta property="og:updated_time" content="2017-02-18T07:51:22.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="2017-02技术文章摘要总结">
-<meta name="twitter:description" content="此为2017年2月份看过的技术文章的总结与感悟。">
+<meta name="twitter:title" content="《深入理解Java虚拟机：JVM高级特性与最佳实践》读书笔记（一）">
+<meta name="twitter:description" content="有关Java虚拟机的这一系列文章都基于《深入理解Java虚拟机：JVM高级特性与最佳实践》这本书，是在阅读这本书过程的一些读书笔记，以梳理和总结相关的知识点为目的。">
+<meta name="twitter:image" content="http://asanzhang.coding.me/gallery2017/JVM-runtime-data-area.jpg">
 
 
 
@@ -130,13 +134,13 @@
 
 
 
-  <link rel="canonical" href="http://asan.today/2017/02/13/2017-02-essay-of-tech-articles/"/>
+  <link rel="canonical" href="http://asan.today/2016/01/18/understanding-the-JVM-2nd-edition-1/"/>
 
 
 
 
 
-  <title> 2017-02技术文章摘要总结 | Asan's workbench </title>
+  <title> 《深入理解Java虚拟机：JVM高级特性与最佳实践》读书笔记（一） | Asan's workbench </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -296,7 +300,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://asan.today/2017/02/13/2017-02-essay-of-tech-articles/">
+  <link itemprop="mainEntityOfPage" href="http://asan.today/2016/01/18/understanding-the-JVM-2nd-edition-1/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="Asan">
@@ -320,7 +324,7 @@
             
             
               
-                2017-02技术文章摘要总结
+                《深入理解Java虚拟机：JVM高级特性与最佳实践》读书笔记（一）
               
             
           </h2>
@@ -335,8 +339,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-13T22:20:38+08:00">
-                2017-02-13
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-01-18T15:47:46+08:00">
+                2016-01-18
               </time>
             
 
@@ -358,8 +362,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/技术文章摘要/" itemprop="url" rel="index">
-                    <span itemprop="name">技术文章摘要</span>
+                  <a href="/categories/读书笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">读书笔记</span>
                   </a>
                 </span>
 
@@ -376,8 +380,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/02/13/2017-02-essay-of-tech-articles/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/02/13/2017-02-essay-of-tech-articles/" itemprop="commentCount"></span>
+                <a href="/2016/01/18/understanding-the-JVM-2nd-edition-1/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/18/understanding-the-JVM-2nd-edition-1/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -408,49 +412,43 @@
       
 
       
-        <p>此为2017年2月份看过的技术文章的总结与感悟。<a id="more"></a></p>
-<blockquote>
-<p>2017-02-13  晴 PM2.5:127  @杭州</p>
-</blockquote>
-<h3 id="99-的人都理解错了HTTP中GET与POST的区别"><a href="#99-的人都理解错了HTTP中GET与POST的区别" class="headerlink" title="99%的人都理解错了HTTP中GET与POST的区别"></a><a href="http://mp.weixin.qq.com/s?__biz=MzI3NzIzMzg3Mw==&amp;mid=100000054&amp;idx=1&amp;sn=71f6c214f3833d9ca20b9f7dcd9d33e4" target="_blank" rel="external">99%的人都理解错了HTTP中GET与POST的区别</a></h3><ul>
-<li>HTTP是基于TCP/IP的关于数据如何在万维网中如何通信的协议，是数据在万维网中传输的“行为准则”；</li>
-<li>HTTP中的<code>GET</code>和<code>POST</code>本质上就是TCP连接，是两种不同的传输数据的方式，本质上无差别；</li>
-<li>由于浏览器/服务器的对请求处理的限制，<code>GET</code>和<code>POST</code>在应用中体现出一些不同，如<code>GET</code>请求在URL中传送的参数是有长度限制的，而<code>POST</code>则没有；</li>
-<li><strong>GET请求产生一个数据包</strong>：对于GET方式的请求，浏览器会把HTTP header和data一并发送出去，服务器响应200 OK（返回数据）；</li>
-<li><strong>POST产生两个TCP数据包</strong>：对于POST方式的请求，浏览器先发送header，服务器响应100 continue，浏览器再发送data，服务器响应200 OK（返回数据）。<ul>
-<li>GET与POST都有自己的语义，不能随便混用；</li>
-<li>据研究，在网络环境好的情况下，发一次包的时间和发两次包的时间差别基本可以无视。而在网络环境差的情况下，两次包的TCP在验证数据包完整性上，有非常大的优点；</li>
-<li>并不是所有浏览器都会在POST中发送两次包，Firefox就只发送一次。</li>
+        <p>有关Java虚拟机的这一系列文章都基于<a href="https://book.douban.com/subject/24722612/" target="_blank" rel="external">《深入理解Java虚拟机：JVM高级特性与最佳实践》</a>这本书，是在阅读这本书过程的一些读书笔记，以梳理和总结相关的知识点为目的。<a id="more"></a></p>
+<h3 id="运行时数据区域"><a href="#运行时数据区域" class="headerlink" title="运行时数据区域"></a>运行时数据区域</h3><p> Java虚拟机在执行Java程序时，会将把其所管理的内存分为若干个数据区域，这些区域都有各自的用途，以及创建和销毁的时间，有的区域随着虚拟机进程的启动而存在，有些区域则依赖用户线程的启动和结束而建立和销毁。根据《Java虚拟机规范（JavaSE 7版）》的规定，Java虚拟机所管理的内存将会包括以下几个运行时数据区域：程序计数器、虚拟机栈、Java堆、方法区和本地方法栈。如下图所示：</p>
+<p><img src="http://asanzhang.coding.me/gallery2017/JVM-runtime-data-area.jpg" width="60%"></p>
+<ul>
+<li>程序计数器（Program Counter Resgister）：是一块较小的内存区域，可以看作是当前线程执行字节码的行号指示器（实际是当执行字节码的地址），字节码解释器工作时就是通过改变这个计数器的值来选取下一条需要执行的字节码指令，分支、循环、跳转、异常处理、线程恢复等基础功能都需要依赖这个计数器来完成。该区域是<strong>线程私有</strong>的；</li>
+<li>虚拟机栈（VM Stack）：是Java方法执行的内存模型，每个Java方法（或本地方法）在执行的同时会创建栈帧（Stack Frame），用来存放局部变量表、方法出口、操作数栈和动态链接等信息。每个方法从调用到执行完成的过程就对应着这样一个栈帧的入栈和弹栈。局部变量表所需的内存大小在编译期就已分配完成，进入一个方法或方法在执行过程中，其大小是确定的，不变的。Sun Hotspot虚拟机中，Java虚拟机栈和本地方法栈（为Native方法服务）合二为一，此处统称为虚拟机栈。该区域是<strong>线程私有</strong>的；</li>
+<li>Java堆（Java Heap）：是Java虚拟机所管理内存中最大的一块区域，并且<strong>被各线程共享</strong>，在虚拟机启动时被创建。此区域唯一目的就是存放对象实例和数组，同时也是GC管理的主要区域。从内存回收的角度来看，由于现在收集器基本都采用分代收集算法，所以Java堆中还可以细分为：新生代和老年代；再细致一点的有Eden空间、From Survivor空间、To Survivor空间等，Java堆可以处于物理上不连续的内存空间中，只要逻辑上是连续的即可，就像我们的磁盘空间一样；</li>
+<li>方法区（Method Area）：与Java堆一样，是<strong>各个线程共享</strong>的内存区域，它用于存储已被虚拟机加载的类信息、常量、静态变量、即时编译器编译后的代码等数据。Java虚拟机规范把方法区描述为堆的一个逻辑部分，亦称“非堆（Non-Heap）”。这区域的内存回收目标主要是针对常量池的回收和对类型的卸载。运行时常量池（Runtime Constant Pool）是方法区的一部分，用于存放编译期生成的各种字面量和符号引用，这部分内容将在类加载后进入方法区的运行时常量池中存放。</li>
 </ul>
+<h3 id="HotSpot-VM下堆内存的对象管理"><a href="#HotSpot-VM下堆内存的对象管理" class="headerlink" title="HotSpot VM下堆内存的对象管理"></a>HotSpot VM下堆内存的对象管理</h3><ul>
+<li><p>对象的创建：此处讨论的对象仅限于<strong>普通Java对象</strong>，不包括数组和Class对象等。下面是Java对象创建的过程：</p>
+<ol>
+<li>虚拟机遇到一条new指令时，首先将去检查这个指令的参数是否能在常量池中定位到一个类的符号引用，并且检查这个符号引用代表的类是否已被加载、解析和初始化过。如果没有，那必须先执行相应的类加载过程；</li>
+<li>类加载检查通过后，会为对象分配内存。根据Java堆是否规整，为对象分配空间的方式有“指针碰撞”和“空闲列表”之分。由于Java堆是各个线程共享的一片内存区域，则在给对象分配空间时存在线程不安全的问题，为解决这个问题可以采用CAS配上失败重试的方式保证更新操作的原子性或者采用本地线程分配缓冲（Thread Local Allocation Buffer，TLAB）方式为每个线程预先分配一小块内存，然后在这小块内存上为对象分配空间。内存的大小是在类加载完就可以确定的（至于为什么之后再补充）；</li>
+<li>内存分配完成后，虚拟机需要将分配到的内存空间都初始化为零值（不包括对象头）。这一操作保证了对象的实例字段在Java代码中可以不赋初始值就直接使用，程序能访问到这些字段的数据类型所对应的零值；</li>
+<li>接下来，虚拟机要对对象进行必要的设置，例如这个对象是哪个类的实例、如何才能找到类的元数据信息、对象的哈希码、对象的GC分代年龄等信息，这些信息存放在对象的对象头（ObjectHeader）之中；</li>
+<li>一般来说，执行new指令之后会接着执行<code>&lt;init&gt;</code>方法，把对象按照程序员的意愿进行初始化，这样一个真正可用的对象才算完全产生出来。</li>
+</ol>
+</li>
+<li><p>对象的内存布局：dui在HotSpot虚拟机中，对象在内存中存储的布局可以分为3块区域：对象头（Header）、实例数据（Instance Data）和对齐填充（Padding）。下面分别介绍着3块区域：</p>
+<ol>
+<li>HotSpot虚拟机的对象头包括两部分信息，第一部分用于存储对象自身的运行时数据，如哈希码（HashCode）、GC分代年龄、锁状态标志、线程持有的锁、偏向线程ID、偏向时间戳等，另一部分是类型指针，即对象指向它的类元数据的指针，虚拟机通过这个指针来确定这个对象是哪个类的实例；</li>
+<li>实例数据部分是对象真正存储的有效信息，也是在程序代码中所定义的各种类型的字段内容。无论是从父类继承下来的，还是在子类中定义的，都需要记录起来；</li>
+<li>对齐填充仅仅起着占位符的作用，由于HotSpot VM的自动内存管理系统要求对象起始地址必须是8字节的整数倍，换句话说，就是对象的大小必须是8字节的整数倍。而对象头部分正好是8字节的倍数（1倍或者2倍），因此，当对象实例数据部分没有对齐时，就需要通过对齐填充来补全。</li>
+</ol>
+</li>
+<li><p>对象的访问定位：Java程序需要通过栈上的reference数据来操作访问堆上的具体对象，目前主流的访问方式有使用句柄和直接指针两种；</p>
+<ul>
+<li><p>如果使用句柄访问的话，那么Java堆中将会划分出一块内存来作为句柄池，reference中存储的就是对象的句柄地址，而句柄中包含了对象实例数据与类型数据各自的具体地址信息，如图：</p>
+<p><img src="http://asanzhang.coding.me/gallery2017/access-to-instance-handle.jpg" width="73%"></p>
+</li>
+<li><p>如果使用直接指针访问，那么Java堆对象的布局中就必须考虑如何放置访问类型数据的相关信息，而reference中存储的直接就是对象地址，如图：</p>
+<p><img src="http://asanzhang.coding.me/gallery2017/access-to-instance-pointer.jpg" width="75%"></p>
+<p>对虚拟机Sun HotSpot而言，它是使用第二种方式进行对象访问的，即通过直接指针访问对象。使用直接指针访问方式的最大好处就是速度更快，它节省了一次指针定位的时间开销，由于对象的访问在Java中非常频繁，因此这类开销积少成多后也是一项非常可观的执行成本。  </p>
 </li>
 </ul>
-<hr>
-<blockquote>
-<p>2017-02-16 多云 PM2.5:65  @杭州</p>
-</blockquote>
-<h3 id="登录工程：传统-Web-应用中的身份验证技术"><a href="#登录工程：传统-Web-应用中的身份验证技术" class="headerlink" title="登录工程：传统 Web 应用中的身份验证技术"></a><a href="http://insights.thoughtworkers.org/traditional-web-app-authentication/" target="_blank" rel="external">登录工程：传统 Web 应用中的身份验证技术</a></h3><h4 id="传统Web应用中身份验证最佳实践"><a href="#传统Web应用中身份验证最佳实践" class="headerlink" title="传统Web应用中身份验证最佳实践"></a>传统Web应用中身份验证最佳实践</h4><ol>
-<li>只在鉴权请求中发送一次用户名和密码凭据；</li>
-<li>成功凭据之后，由服务器生成代表用户“身份的 Cookie”（或同时以名值对的形式存储在NoSQL数据库中），发送给客户端；</li>
-<li>客户端在后续请求中携带上一步中收到的 “身份 Cookie”；</li>
-<li>服务器解密”身份 Cookie”（或从NoSQL数据库中获取身份信息），并对需要访问的资源予以授权。</li>
-</ol>
-<h4 id="传统Web应用中的单点登录"><a href="#传统Web应用中的单点登录" class="headerlink" title="传统Web应用中的单点登录"></a>传统Web应用中的单点登录</h4><ul>
-<li>在便利用户的同时，也期待各个子系统仍拥有独立用户身份、独立管理和运维的灵活性，因此可引入独立的鉴权子站点；</li>
-<li>当用户到达业务站点A时，被重定向到鉴权站点；登录成功之后，用户被重定向回到业务站点 A、同时附加一个指示“已有用户登录”的令牌串（token）——此时业务站点A使用令牌串，在服务器端从鉴权子站点查询并记录当前已登录的用户。当用户到达业务站点B时，执行相同流程，由于已有用户登录，所以用户登录的过程会被自动省略。</li>
-</ul>
-<hr>
-<blockquote>
-<p>2017-02-17 阴 PM2.5:80  @杭州</p>
-</blockquote>
-<h3 id="登录工程：现代-Web-应用的典型身份验证需求"><a href="#登录工程：现代-Web-应用的典型身份验证需求" class="headerlink" title="登录工程：现代 Web 应用的典型身份验证需求"></a><a href="http://insights.thoughtworkers.org/project-of-login/" target="_blank" rel="external">登录工程：现代 Web 应用的典型身份验证需求</a></h3><ul>
-<li>我们通常假设用户不信任浏览器，用户通过与服务器建立的临时浏览器会话完成操作。会话开始时，用户被重定向到特定页面进行登录。登录完成后，用户通过持续与服务器交互来延续临时会话的时长；一旦用户一段时间不与服务器交互，则他的会话很快就会过期（被服务器强制登出）；</li>
-<li>安装在移动设备中的应用程序更受用户信任；登录时将用户重定向到一个网页去登录的做法，并不能提供很好的用户体验——更重要的是，用户在使用移动设备时，时间是碎片化的。我们无法要求用户必须在特定时间内完成操作，也就基本没有会话的概念：我们需要找到一种能够安全地在设备中相对持久地存储用户凭据的方法，并且Web应用服务器可能需要配合这种方式来完成鉴权；</li>
-<li>在注册时，越来越多的网站要求用户提供电子邮箱地址或者手机号码，有的网站还支持让用户以多种方式登录。比如，提供一种让用户在使用了一种方式注册之后，还能绑定其他登录方式的功能。绑定完成之后，用户可以选用他喜欢的登录方式。它隐含了一个网站与用户共同的认知：联系方式的拥有者即为用户本人，这种“从属”关系能够用于证实用户的身份。当用户下次在注册新网站时遇到“邮件地址已被注册”，或者“手机号已被注册”的时候，基本可以确定自己曾经注册过这个网站了；</li>
-<li>登录过程中所支持的联系方式也呈现出多样性。电子邮件服务在很多场景中逐渐被形式多样的其他联系方式（比如手机、微信等）所取代，不少人根本没有使用邮件的习惯，如果网站只提供邮箱注册的途径，有时候还会遭到那些不经常使用电子邮箱的用户的反感；</li>
-<li>上文中提到的“从属”关系不光可以帮助用户判断自己是否注册过一个网站，也可以帮助网站在忘记密码时进行临时认证，从而帮助用户完成新密码的设置。如果将这种从属关系用于正常登录过程中的进一步验证，就构成了双因子鉴权，一种增强型的登录过程；</li>
-<li>从整个企业的业务模式（例如网易门户和网易邮箱），到某项业务的具体流程（例如京东订单和京东支付），再到某个流程中的具体步骤（例如短信验证与支付扣款），“服务”这一概念越来越轻量级，于是人们不得不创造了<a href="http://insights.thoughtworkers.org/microservices-nutshell/" target="_blank" rel="external">“微服务”</a>这个新的品类词汇来拓展认知空间；</li>
-<li>在互联网Web应用中，授权的范畴也包含一个很小的公有部分，是各个业务系统所共有的：即用户状态。我们希望在各业务子系统之间共享用户状态：用户被锁定之后，他在所有业务系统都被锁定；用户被注销之后，所有业务系统中有关他的数据都被封存。另外在多个业务系统中，还可能会共用用户的基本资料和偏好设置等数据。这样，开发一个“用户”系统的想法也就应运而生了。由于与用户的状态等基础信息的关系很紧密，登录与用户系统之间的集成是很自然的，将登录子系统直接作为这个用户系统的一部分也不失为一种不错的实践；</li>
-<li>如果识别用户这一需求能够在不需要用户注册的前提下搞定，岂不两全齐美？基于第三方身份提供方的接口来识别已经在其他平台注册的用户，并将其转化为自己应用中的用户，这种方式完全可行。</li>
+</li>
 </ul>
 
       
@@ -475,9 +473,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/HTTP协议/" rel="tag"># HTTP协议</a>
+            <a href="/tags/JVM/" rel="tag"># JVM</a>
           
-            <a href="/tags/登录/" rel="tag"># 登录</a>
+            <a href="/tags/JVM运行时数据区/" rel="tag"># JVM运行时数据区</a>
+          
+            <a href="/tags/对象管理/" rel="tag"># 对象管理</a>
           
         </div>
       
@@ -490,18 +490,14 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/02/09/understanding-Java7-reading-notes-1/" rel="next" title="《深入理解Java7：核心技术与最佳实践》读书笔记（一）">
-                <i class="fa fa-chevron-left"></i> 《深入理解Java7：核心技术与最佳实践》读书笔记（一）
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/02/15/understanding-Java7-reading-notes-2/" rel="prev" title="《深入理解Java7：核心技术与最佳实践》读书笔记（二）">
-                《深入理解Java7：核心技术与最佳实践》读书笔记（二） <i class="fa fa-chevron-right"></i>
+              <a href="/2016/01/25/Linux-OracleDB-service-startup-and-sutdown/" rel="prev" title="Linux下Oracle服务的开启和关闭">
+                Linux下Oracle服务的开启和关闭 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -517,10 +513,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2017/02/13/2017-02-essay-of-tech-articles/"
-     data-title="2017-02技术文章摘要总结"
+        <div class="ds-share flat" data-thread-key="2016/01/18/understanding-the-JVM-2nd-edition-1/"
+     data-title="《深入理解Java虚拟机：JVM高级特性与最佳实践》读书笔记（一）"
      data-content=""
-     data-url="http://asan.today/2017/02/13/2017-02-essay-of-tech-articles/">
+     data-url="http://asan.today/2016/01/18/understanding-the-JVM-2nd-edition-1/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -547,8 +543,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2017/02/13/2017-02-essay-of-tech-articles/"
-           data-title="2017-02技术文章摘要总结" data-url="http://asan.today/2017/02/13/2017-02-essay-of-tech-articles/">
+      <div class="ds-thread" data-thread-key="2016/01/18/understanding-the-JVM-2nd-edition-1/"
+           data-title="《深入理解Java虚拟机：JVM高级特性与最佳实践》读书笔记（一）" data-url="http://asan.today/2016/01/18/understanding-the-JVM-2nd-edition-1/">
       </div>
     
   </div>
@@ -668,7 +664,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#99-的人都理解错了HTTP中GET与POST的区别"><span class="nav-number">1.</span> <span class="nav-text">99%的人都理解错了HTTP中GET与POST的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#登录工程：传统-Web-应用中的身份验证技术"><span class="nav-number">2.</span> <span class="nav-text">登录工程：传统 Web 应用中的身份验证技术</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#传统Web应用中身份验证最佳实践"><span class="nav-number">2.1.</span> <span class="nav-text">传统Web应用中身份验证最佳实践</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#传统Web应用中的单点登录"><span class="nav-number">2.2.</span> <span class="nav-text">传统Web应用中的单点登录</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#登录工程：现代-Web-应用的典型身份验证需求"><span class="nav-number">3.</span> <span class="nav-text">登录工程：现代 Web 应用的典型身份验证需求</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#运行时数据区域"><span class="nav-number">1.</span> <span class="nav-text">运行时数据区域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HotSpot-VM下堆内存的对象管理"><span class="nav-number">2.</span> <span class="nav-text">HotSpot VM下堆内存的对象管理</span></a></li></ol></div>
             
 
           </div>
