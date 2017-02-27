@@ -100,7 +100,7 @@
 <meta property="og:site_name" content="半亩方塘">
 <meta property="og:description" content="虚拟机把描述类数据从Class文件加载到内存，并对数据进行校验、转换解析和初始化，最终形成可以被虚拟机识别的Java类型，这就是Java虚拟机的类加载机制，并且类型的加载、链接和初始化都是在程序运行期间完成的，这篇文章就来谈谈类加载机制。">
 <meta property="og:image" content="http://asanzhang.coding.me/gallery2017/recycle-of-class.jpg">
-<meta property="og:updated_time" content="2017-02-20T14:56:07.000Z">
+<meta property="og:updated_time" content="2017-02-27T05:28:57.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《深入理解Java虚拟机：JVM高级特性与最佳实践》读书笔记（三）">
 <meta name="twitter:description" content="虚拟机把描述类数据从Class文件加载到内存，并对数据进行校验、转换解析和初始化，最终形成可以被虚拟机识别的Java类型，这就是Java虚拟机的类加载机制，并且类型的加载、链接和初始化都是在程序运行期间完成的，这篇文章就来谈谈类加载机制。">
@@ -390,11 +390,9 @@
 
       
         <p>虚拟机把描述类数据从Class文件加载到内存，并对数据进行校验、转换解析和初始化，最终形成可以被虚拟机识别的Java类型，这就是Java虚拟机的类加载机制，并且类型的加载、链接和初始化都是在程序运行期间完成的，这篇文章就来谈谈类加载机制。<a id="more"></a></p>
-<p>虚拟机把描述类数据从Class文件加载到内存，并对数据进行校验、转换解析和初始化，最终形成可以被虚拟机识别的Java类型，这就是Java虚拟机的类加载机制，并且类型的加载、链接和初始化都是在程序运行期间完成的，这篇文章就来谈谈类加载机制。</p>
 <h3 id="类加载的时机"><a href="#类加载的时机" class="headerlink" title="类加载的时机"></a>类加载的时机</h3><ul>
 <li><p>类从加载到虚拟机内存开始，到卸载出内存为止，类的生命周期包括：加载、验证、准备、解析、初始化、使用和卸载等7个阶段。其中验证、准备、解析阶段称为链接。类的生命周期如图：</p>
 <p><img src="http://asanzhang.coding.me/gallery2017/recycle-of-class.jpg" width="80%"></p>
-<p>​</p>
 </li>
 </ul>
 <p>图中的加载、验证、准备、初始化和卸载等几个阶段是确定的，而解析这个阶段并不确定。</p>
